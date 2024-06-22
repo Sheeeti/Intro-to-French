@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>French Verbs Conjugation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fdf5e6; /* Off white cream */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        
+        header {
+            background-color: #800020; /* Burgundy red */
+            color: white;
+            padding: 1em 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 0.5em 1em;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav a {
+            color: white;
+            margin: 0 1em;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #ffcc00;
+        }
+        
+        main {
+            flex: 1;
+            padding: 2em;
+        }
+        
+        footer {
+            background-color: #800020;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1, h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1em;
+        }
+        
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        
+        table th {
+            background-color: #800020;
+            color: white;
+        }
+        
+        .examples p {
+            margin: 0.5em 0;
+        }
+        
+        .diagrams {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        
+        .diagram {
+            text-align: center;
+            margin: 1em;
+            white-space: pre;
+            font-family: monospace;
+        }
+        
+        .flashcards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        
+        .flashcard {
+            width: 100px;
+            height: 150px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 1em;
+            text-align: center;
+            line-height: 150px;
+            font-size: 1.2em;
+            cursor: pointer;
+            perspective: 1000px;
+            position: relative;
+            background-color: white;
+            transition: transform 0.5s;
+        }
+        
+        .flashcard .front, .flashcard .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            transition: transform 0.6s;
+            border-radius: 8px;
+        }
+        
+        .flashcard .front {
+            background-color: #800020;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .flashcard .back {
+            background-color: #f7f7f7;
+            color: #333;
+            transform: rotateY(180deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .flashcard.flipped .front {
+            transform: rotateY(180deg);
+        }
+        
+        .flashcard.flipped .back {
+            transform: rotateY(0deg);
+        }
+
+        .dark-mode {
+            background-color: black;
+            color: #00FF00;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .dark-mode header, .dark-mode footer {
+            background-color: black;
+        }
+
+        .dark-mode nav {
+            background-color: black;
+        }
+
+        .dark-mode nav a {
+            color: #00FF00;
+        }
+
+        .dark-mode table th {
+            background-color: black;
+            color: #00FF00;
+        }
+
+        .dark-mode .flashcard {
+            border: 1px solid #00FF00;
+            background-color: black;
+        }
+
+        .dark-mode .flashcard .front {
+            background-color: black;
+            color: #00FF00;
+        }
+
+        .dark-mode .flashcard .back {
+            background-color: black;
+            color: #00FF00;
+        }
+
+        .dark-mode .flashcard.flipped .front {
+            background-color: black;
+            transform: rotateY(180deg);
+        }
+
+        .dark-mode .flashcard.flipped .back {
+            background-color: black;
+            color: #00FF00;
+            transform: rotateY(0deg);
+        }
+
+        .dark-mode .diagrams .diagram {
+            color: #00FF00;
+        }
+
+        #dark-mode-button {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            padding: 10px;
+            background-color: #800020;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        #dark-mode-button:hover {
+            background-color: #ffcc00;
+            color: #800020;
+        }
+
+        .flashcard-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .rabbit-animation {
+            font-family: monospace;
+            white-space: pre;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .story-list, .story-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .story-item {
+            margin: 10px 0;
+            cursor: pointer;
+            text-decoration: underline;
+            color: #800020;
+        }
+
+        .story-item:hover {
+            color: #ffcc00;
+        }
+
+        .story-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .story-container div {
+            width: 45%;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #800020;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background-color: #ffcc00;
+            color: #800020;
+        }
+
+        .common-phrases ul, .questions ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .common-phrases li, .questions li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>French Verbs Conjugation</h1>
+    </header>
+    <nav>
+        <a href="#present-tense" class="nav-link">Present Tense</a>
+        <a href="#future-tense" class="nav-link">Future Tense</a>
+        <a href="#past-tense" class="nav-link">Past Tense</a>
+        <a href="#examples" class="nav-link">Examples</a>
+        <a href="#common-verbs" class="nav-link">Common Verbs</a>
+        <a href="#diagrams-section" class="nav-link">Diagrams</a>
+        <a href="#flashcards-section" class="nav-link">Flashcards</a>
+        <a href="#stories-section" class="nav-link">Stories</a>
+        <a href="#introductions-section" class="nav-link">Introductions</a>
+        <a href="#questions-section" class="nav-link">Questions</a>
+    </nav>
+    <main>
+        <section id="present-tense" class="section">
+            <h2>Present Tense Conjugation</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pronoun</th>
+                        <th>-er verbs</th>
+                        <th>-ir verbs</th>
+                        <th>-re verbs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>je</td>
+                        <td>parle</td>
+                        <td>finis</td>
+                        <td>vends</td>
+                    </tr>
+                    <tr>
+                        <td>tu</td>
+                        <td>parles</td>
+                        <td>finis</td>
+                        <td>vends</td>
+                    </tr>
+                    <tr>
+                        <td>il/elle</td>
+                        <td>parle</td>
+                        <td>finit</td>
+                        <td>vend</td>
+                    </tr>
+                    <tr>
+                        <td>nous</td>
+                        <td>parlons</td>
+                        <td>finissons</td>
+                        <td>vendons</td>
+                    </tr>
+                    <tr>
+                        <td>vous</td>
+                        <td>parlez</td>
+                        <td>finissez</td>
+                        <td>vendez</td>
+                    </tr>
+                    <tr>
+                        <td>ils/elles</td>
+                        <td>parlent</td>
+                        <td>finissent</td>
+                        <td>vendent</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section id="future-tense" class="section">
+            <h2>Future Tense Conjugation</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pronoun</th>
+                        <th>-er verbs</th>
+                        <th>-ir verbs</th>
+                        <th>-re verbs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>je</td>
+                        <td>parlerai</td>
+                        <td>finirai</td>
+                        <td>vendrai</td>
+                    </tr>
+                    <tr>
+                        <td>tu</td>
+                        <td>parleras</td>
+                        <td>finiras</td>
+                        <td>vendras</td>
+                    </tr>
+                    <tr>
+                        <td>il/elle</td>
+                        <td>parlera</td>
+                        <td>finira</td>
+                        <td>vendra</td>
+                    </tr>
+                    <tr>
+                        <td>nous</td>
+                        <td>parlerons</td>
+                        <td>finirons</td>
+                        <td>vendrons</td>
+                    </tr>
+                    <tr>
+                        <td>vous</td>
+                        <td>parlerez</td>
+                        <td>finirez</td>
+                        <td>vendrez</td>
+                    </tr>
+                    <tr>
+                        <td>ils/elles</td>
+                        <td>parleront</td>
+                        <td>finiront</td>
+                        <td>vendront</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section id="past-tense" class="section">
+            <h2>Past Tense Conjugation</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pronoun</th>
+                        <th>-er verbs</th>
+                        <th>-ir verbs</th>
+                        <th>-re verbs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>je</td>
+                        <td>ai parlé</td>
+                        <td>ai fini</td>
+                        <td>ai vendu</td>
+                    </tr>
+                    <tr>
+                        <td>tu</td>
+                        <td>as parlé</td>
+                        <td>as fini</td>
+                        <td>as vendu</td>
+                    </tr>
+                    <tr>
+                        <td>il/elle</td>
+                        <td>a parlé</td>
+                        <td>a fini</td>
+                        <td>a vendu</td>
+                    </tr>
+                    <tr>
+                        <td>nous</td>
+                        <td>avons parlé</td>
+                        <td>avons fini</td>
+                        <td>avons vendu</td>
+                    </tr>
+                    <tr>
+                        <td>vous</td>
+                        <td>avez parlé</td>
+                        <td>avez fini</td>
+                        <td>avez vendu</td>
+                    </tr>
+                    <tr>
+                        <td>ils/elles</td>
+                        <td>ont parlé</td>
+                        <td>ont fini</td>
+                        <td>ont vendu</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section id="examples" class="section">
+            <h2>Examples</h2>
+            <div class="examples">
+                <h3>-er Verbs (parler - to speak)</h3>
+                <p>Present: Je parle français. (I speak French.)</p>
+                <p>Future: Nous parlerons demain. (We will speak tomorrow.)</p>
+                <p>Past: Ils ont parlé hier. (They spoke yesterday.)</p>
+                <h3>-ir Verbs (finir - to finish)</h3>
+                <p>Present: Tu finis tes devoirs. (You finish your homework.)</p>
+                <p>Future: Elle finira bientôt. (She will finish soon.)</p>
+                <p>Past: Nous avons fini le projet. (We finished the project.)</p>
+                <h3>-re Verbs (vendre - to sell)</h3>
+                <p>Present: Il vend sa voiture. (He sells his car.)</p>
+                <p>Future: Vous vendrez votre maison. (You will sell your house.)</p>
+                <p>Past: Elles ont vendu les billets. (They sold the tickets.)</p>
+            </div>
+        </section>
+        <section id="common-verbs" class="section">
+            <h2>Common Verbs Conjugation</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>English</th>
+                        <th>French</th>
+                        <th>Present</th>
+                        <th>Future</th>
+                        <th>Past</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>to be</td>
+                        <td>être</td>
+                        <td>suis</td>
+                        <td>serai</td>
+                        <td>ai été</td>
+                    </tr>
+                    <tr>
+                        <td>to say</td>
+                        <td>dire</td>
+                        <td>dis</td>
+                        <td>dirai</td>
+                        <td>ai dit</td>
+                    </tr>
+                    <tr>
+                        <td>to have</td>
+                        <td>avoir</td>
+                        <td>ai</td>
+                        <td>aurai</td>
+                        <td>ai eu</td>
+                    </tr>
+                    <tr>
+                        <td>to do/make</td>
+                        <td>faire</td>
+                        <td>fais</td>
+                        <td>ferai</td>
+                        <td>ai fait</td>
+                    </tr>
+                    <tr>
+                        <td>to go</td>
+                        <td>aller</td>
+                        <td>vais</td>
+                        <td>irai</td>
+                        <td>suis allé</td>
+                    </tr>
+                    <tr>
+                        <td>to see</td>
+                        <td>voir</td>
+                        <td>vois</td>
+                        <td>verrai</td>
+                        <td>ai vu</td>
+                    </tr>
+                    <tr>
+                        <td>to know</td>
+                        <td>savoir</td>
+                        <td>sais</td>
+                        <td>saurai</td>
+                        <td>ai su</td>
+                    </tr>
+                    <tr>
+                        <td>to want</td>
+                        <td>vouloir</td>
+                        <td>veux</td>
+                        <td>voudrai</td>
+                        <td>ai voulu</td>
+                    </tr>
+                    <tr>
+                        <td>to come</td>
+                        <td>venir</td>
+                        <td>viens</td>
+                        <td>viendrai</td>
+                        <td>suis venu</td>
+                    </tr>
+                    <tr>
+                        <td>to find</td>
+                        <td>trouver</td>
+                        <td>trouve</td>
+                        <td>trouverai</td>
+                        <td>ai trouvé</td>
+                    </tr>
+                    <tr>
+                        <td>to give</td>
+                        <td>donner</td>
+                        <td>donne</td>
+                        <td>donnerai</td>
+                        <td>ai donné</td>
+                    </tr>
+                    <tr>
+                        <td>to take</td>
+                        <td>prendre</td>
+                        <td>prends</td>
+                        <td>prendrai</td>
+                        <td>ai pris</td>
+                    </tr>
+                    <tr>
+                        <td>to speak</td>
+                        <td>parler</td>
+                        <td>parle</td>
+                        <td>parlerai</td>
+                        <td>ai parlé</td>
+                    </tr>
+                    <tr>
+                        <td>to put</</td>
+                        <td>mettre</td>
+                        <td>mets</td>
+                        <td>mettrai</td>
+                        <td>ai mis</td>
+                    </tr>
+                    <tr>
+                        <td>to like/love</td>
+                        <td>aimer</td>
+                        <td>aime</td>
+                        <td>aimerai</td>
+                        <td>ai aimé</td>
+                    </tr>
+                    <tr>
+                        <td>to ask</td>
+                        <td>demander</td>
+                        <td>demande</td>
+                        <td>demanderai</td>
+                        <td>ai demandé</td>
+                    </tr>
+                    <tr>
+                        <td>to hold</td>
+                        <td>tenir</td>
+                        <td>tiens</td>
+                        <td>tiendrai</td>
+                        <td>ai tenu</td>
+                    </tr>
+                    <tr>
+                        <td>to seem</td>
+                        <td>sembler</td>
+                        <td>semble</td>
+                        <td>semblerai</td>
+                        <td>ai semblé</td>
+                    </tr>
+                    <tr>
+                        <td>to leave</td>
+                        <td>laisser</td>
+                        <td>laisse</td>
+                        <td>laisserai</td>
+                        <td>ai laissé</td>
+                    </tr>
+                    <tr>
+                        <td>to stay</td>
+                        <td>rester</td>
+                        <td>reste</td>
+                        <td>resterai</td>
+                        <td>suis resté</td>
+                    </tr>
+                    <tr>
+                        <td>to think</td>
+                        <td>penser</td>
+                        <td>pense</td>
+                        <td>penserai</td>
+                        <td>ai pensé</td>
+                    </tr>
+                    <tr>
+                        <td>to hear</td>
+                        <td>entendre</td>
+                        <td>entends</td>
+                        <td>entendrai</td>
+                        <td>ai entendu</td>
+                    </tr>
+                    <tr>
+                        <td>to look</td>
+                        <td>regarder</td>
+                        <td>regarde</td>
+                        <td>regarderai</td>
+                        <td>ai regardé</td>
+                    </tr>
+                    <tr>
+                        <td>to answer</td>
+                        <td>répondre</td>
+                        <td>réponds</td>
+                        <td>répondrai</td>
+                        <td>ai répondu</td>
+                    </tr>
+                    <tr>
+                        <td>to return</td>
+                        <td>rendre</td>
+                        <td>rends</td>
+                        <td>rendrai</td>
+                        <td>ai rendu</td>
+                    </tr>
+                    <tr>
+                        <td>to know (someone)</td>
+                        <td>connaître</td>
+                        <td>connais</td>
+                        <td>connaîtrai</td>
+                        <td>ai connu</td>
+                    </tr>
+                    <tr>
+                        <td>to appear</td>
+                        <td>paraître</td>
+                        <td>parais</td>
+                        <td>paraîtrai</td>
+                        <td>ai paru</td>
+                    </tr>
+                    <tr>
+                        <td>to go out</td>
+                        <td>sortir</td>
+                        <td>sors</td>
+                        <td>sortirai</td>
+                        <td>suis sorti</td>
+                    </tr>
+                    <tr>
+                        <td>to live</td>
+                        <td>vivre</td>
+                        <td>vis</td>
+                        <td>vivrai</td>
+                        <td>ai vécu</td>
+                    </tr>
+                    <tr>
+                        <td>to search</td>
+                        <td>chercher</td>
+                        <td>cherche</td>
+                        <td>chercherai</td>
+                        <td>ai cherché</td>
+                    </tr>
+                    <tr>
+                        <td>to enter</td>
+                        <td>entrer</td>
+                        <td>entre</td>
+                        <td>entrerai</td>
+                        <td>suis entré</td>
+                    </tr>
+                    <tr>
+                        <td>to carry</td>
+                        <td>porter</td>
+                        <td>porte</td>
+                        <td>porterai</td>
+                        <td>ai porté</td>
+                    </tr>
+                    <tr>
+                        <td>to open</td>
+                        <td>ouvrir</td>
+                        <td>ouvre</td>
+                        <td>ouvrirai</td>
+                        <td>ai ouvert</td>
+                    </tr>
+                    <tr>
+                        <td>to stop</td>
+                        <td>arrêter</td>
+                        <td>arrête</td>
+                        <td>arrêterai</td>
+                        <td>ai arrêté</td>
+                    </tr>
+                    <tr>
+                        <td>to serve</td>
+                        <td>servir</td>
+                        <td>sers</td>
+                        <td>servirai</td>
+                        <td>ai servi</td>
+                    </tr>
+                    <tr>
+                        <td>to throw</td>
+                        <td>jeter</td>
+                        <td>jette</td>
+                        <td>jetterai</td>
+                        <td>ai jeté</td>
+                    </tr>
+                    <tr>
+                        <td>to come back</td>
+                        <td>revenir</td>
+                        <td>reviens</td>
+                        <td>reviendrai</td>
+                        <td>suis revenu</td>
+                    </tr>
+                    <tr>
+                        <td>to receive</td>
+                        <td>recevoir</td>
+                        <td>reçois</td>
+                        <td>recevrai</td>
+                        <td>ai reçu</td>
+                    </tr>
+                    <tr>
+                        <td>to go up</td>
+                        <td>monter</td>
+                        <td>monte</td>
+                        <td>monterai</td>
+                        <td>suis monté</td>
+                    </tr>
+                    <tr>
+                        <td>to decide</td>
+                        <td>décider</td>
+                        <td>décide</td>
+                        <td>déciderai</td>
+                        <td>ai décidé</td>
+                    </tr>
+                    <tr>
+                        <td>to arrive</td>
+                        <td>arriver</td>
+                        <td>arrive</td>
+                        <td>arriverai</td>
+                        <td>suis arrivé</td>
+                    </tr>
+                    <tr>
+                        <td>to recognize</td>
+                        <td>reconnaître</td>
+                        <td>reconnais</td>
+                        <td>reconnaîtrai</td>
+                        <td>ai reconnu</td>
+                    </tr>
+                    <tr>
+                        <td>to lose</td>
+                        <td>perdre</td>
+                        <td>perds</td>
+                        <td>perdrai</td>
+                        <td>ai perdu</td>
+                    </tr>
+                    <tr>
+                        <td>to become</td>
+                        <td>devenir</td>
+                        <td>deviens</td>
+                        <td>deviendrai</td>
+                        <td>suis devenu</td>
+                    </tr>
+                    <tr>
+                        <td>to succeed</td>
+                        <td>réussir</td>
+                        <td>réussis</td>
+                        <td>réussirai</td>
+                        <td>ai réussi</td>
+                    </tr>
+                    <tr>
+                        <td>to walk</td>
+                        <td>marcher</td>
+                        <td>marche</td>
+                        <td>marcherai</td>
+                        <td>ai marché</td>
+                    </tr>
+                    <tr>
+                        <td>to run</td>
+                        <td>courir</td>
+                        <td>cours</td>
+                        <td>courrai</td>
+                        <td>ai couru</td>
+                    </tr>
+                    <tr>
+                        <td>to die</td>
+                        <td>mourir</td>
+                        <td>meurs</td>
+                        <td>mourrai</td>
+                        <td>suis mort</td>
+                    </tr>
+                    <tr>
+                        <td>to offer</td>
+                        <td>offrir</td>
+                        <td>offre</td>
+                        <td>offrirai</td>
+                        <td>ai offert</td>
+                    </tr>
+                    <tr>
+                        <td>to remember</td>
+                        <td>souvenir</td>
+                        <td>souviens</td>
+                        <td>souviendrai</td>
+                        <td>me suis souvenu</td>
+                    </tr>
+                    <tr>
+                        <td>to return</td>
+                        <td>retourner</td>
+                        <td>retourne</td>
+                        <td>retournerai</td>
+                        <td>suis retourné</td>
+                    </tr>
+                    <tr>
+                        <td>to stay</td>
+                        <td>rester</td>
+                        <td>reste</td>
+                        <td>resterai</td>
+                        <td>suis resté</td>
+                    </tr>
+                    <tr>
+                        <td>to learn</td>
+                        <td>apprendre</td>
+                        <td>apprends</td>
+                        <td>apprendrai</td>
+                        <td>ai appris</td>
+                    </tr>
+                    <tr>
+                        <td>to call</td>
+                        <td>appeler</td>
+                        <td>appelle</td>
+                        <td>appellerai</td>
+                        <td>ai appelé</td>
+                    </tr>
+                    <tr>
+                        <td>to begin</td>
+                        <td>commencer</td>
+                        <td>commence</td>
+                        <td>commencerai</td>
+                        <td>ai commencé</td>
+                    </tr>
+                    <tr>
+                        <td>to help</td>
+                        <td>aider</td>
+                        <td>aide</td>
+                        <td>aiderai</td>
+                        <td>ai aidé</td>
+                    </tr>
+                    <tr>
+                        <td>to fall</td>
+                        <td>tomber</td>
+                        <td>tombe</td>
+                        <td>tomberai</td>
+                        <td>suis tombé</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section id="diagrams-section" class="section">
+            <h2>Diagrams with French Labels</h2>
+            <div class="diagrams">
+                <div class="diagram">
+                    <pre>
+  _______
+ /       \
+/         \
+|  ___    |
+| |___|   |
+|         |
+|_________|
+                    </pre>
+                    <p>Maison (House)</p>
+                </div>
+                <div class="diagram">
+                    <pre>
+  O
+ /|\
+ / \
+                    </pre>
+                    <p>Personne (Person)</p>
+                </div>
+                <div class="diagram">
+                    <pre>
+    _______
+   /       \
+  /  ___    \
+ /  /   \    \
+|  |     |    |
+|  |     |    |
+ \  \___/    /
+  \_______/
+                    </pre>
+                    <p>Carte (Map)</p>
+                </div>
+                <div class="diagram">
+                    <pre>
+       /\
+      /  \
+     /    \
+    /      \
+   /        \
+  /          \
+ /            \
+/              \
+\    __    __   /
+ \  |  |  |  | /
+  \_|  |__|  |/
+                    </pre>
+                    <p>Batman (Batman)</p>
+                </div>
+                <div class="diagram">
+                    <pre>
+     __
+    / _)
+   .-^o^-
+  ||  :  |
+  || :   |
+   '' ''
+                    </pre>
+                    <p>Spiderman (Spiderman)</p>
+                </div>
+                <div class="diagram">
+                    <pre>
+   / \__
+  (    @\___
+  /         O
+ /   (_____/
+/_____/ U
+                    </pre>
+                    <p>Snoopy (Snoopy)</p>
+                </div>
+                <div class="diagram">
+                    <pre>
+  /\_/\ 
+ ( o.o )
+  > ^ <
+                    </pre>
+                    <p>Felix le Chat (Felix the Cat)</p>
+                </div>
+                <!-- Add more diagrams as needed -->
+            </div>
+        </section>
+        <section id="flashcards-section" class="section">
+            <h2>Interactive Flashcards</h2>
+            <div class="flashcard-container" id="flashcards-container">
+                <!-- Flashcards will be added here by JavaScript -->
+            </div>
+            <button id="load-more-flashcards">Load More Flashcards</button>
+        </section>
+        <section id="stories-section" class="section">
+            <h2>Popular French Stories</h2>
+            <div class="story-list" id="story-list">
+                <div class="story-item" data-story="cendrillon">Cendrillon (Cinderella)</div>
+                <div class="story-item" data-story="petit-chaperon-rouge">Le Petit Chaperon Rouge (Little Red Riding Hood)</div>
+                <div class="story-item" data-story="blanche-neige">Blanche-Neige (Snow White)</div>
+                <div class="story-item" data-story="le-petit-prince">Le Petit Prince (The Little Prince)</div>
+                <div class="story-item" data-story="barbe-bleue">Barbe Bleue (Bluebeard)</div>
+                <div class="story-item" data-story="la-belle-et-la-bete">La Belle et la Bête (Beauty and the Beast)</div>
+                <div class="story-item" data-story="le-chat-botte">Le Chat Botté (Puss in Boots)</div>
+                <div class="story-item" data-story="la-petite-sirene">La Petite Sirène (The Little Mermaid)</div>
+                <div class="story-item" data-story="la-barbe-bleue">La Barbe Bleue (Bluebeard)</div>
+                <div class="story-item" data-story="peau-d-ane">Peau d'Âne (Donkeyskin)</div>
+                <div class="story-item" data-story="la-petite-poule-rousse">La Petite Poule Rousse (The Little Red Hen)</div>
+                <div class="story-item" data-story="les-trois-petits-cochons">Les Trois Petits Cochons (The Three Little Pigs)</div>
+                <div class="story-item" data-story="belle-au-bois-dormant">La Belle au Bois Dormant (Sleeping Beauty)</div>
+                <div class="story-item" data-story="le-vilain-petit-canard">Le Vilain Petit Canard (The Ugly Duckling)</div>
+                <div class="story-item" data-story="raiponce">Raiponce (Rapunzel)</div>
+            </div>
+            <div class="story-content hidden" id="story-content">
+                <div class="story-container">
+                    <div class="story-french" id="story-french"></div>
+                    <div class="story-english" id="story-english"></div>
+                </div>
+                <button class="back-button" id="back-button">Back</button>
+            </div>
+        </section>
+        <section id="introductions-section" class="section">
+            <h2>Introductions and Common Greetings</h2>
+            <div class="common-phrases">
+                <h3>Common Greetings</h3>
+                <ul>
+                    <li>Bonjour (Hello / Good morning)</li>
+                    <li>Bonsoir (Good evening)</li>
+                    <li>Salut (Hi)</li>
+                    <li>Comment ça va? (How are you?)</li>
+                    <li>Ça va bien, merci. (I am fine, thank you.)</li>
+                    <li>Enchanté(e) (Nice to meet you)</li>
+                    <li>Bonne journée (Have a nice day)</li>
+                    <li>Bonne soirée (Have a nice evening)</li>
+                    <li>Au revoir (Goodbye)</li>
+                    <li>À bientôt (See you soon)</li>
+                </ul>
+                <h3>Responses</h3>
+                <ul>
+                    <li>Oui (Yes)</li>
+                    <li>Non (No)</li>
+                    <li>Merci (Thank you)</li>
+                    <li>De rien (You're welcome)</li>
+                    <li>S'il vous plaît (Please)</li>
+                    <li>Pardon (Sorry / Excuse me)</li>
+                    <li>Je ne sais pas (I don't know)</li>
+                    <li>Je m'appelle... (My name is...)</li>
+                    <li>Quel est votre nom? (What is your name?)</li>
+                    <li>Je suis... (I am...)</li>
+                </ul>
+            </div>
+        </section>
+        <section id="questions-section" class="section">
+            <h2>Asking Questions in French</h2>
+            <div class="questions">
+                <h3>Question Words</h3>
+                <ul>
+                    <li>Qui? (Who?)</li>
+                    <li>Quoi? (What?)</li>
+                    <li>Où? (Where?)</li>
+                    <li>Quand? (When?)</li>
+                    <li>Pourquoi? (Why?)</li>
+                    <li>Comment? (How?)</li>
+                    <li>Combien? (How much / How many?)</li>
+                    <li>Lequel / Laquelle? (Which one?)</li>
+                </ul>
+                <h3>Examples</h3>
+                <ul>
+                    <li>Qui est-ce? (Who is it?)</li>
+                    <li>Qu'est-ce que c'est? (What is it?)</li>
+                    <li>Où allez-vous? (Where are you going?)</li>
+                    <li>Quand partez-vous? (When are you leaving?)</li>
+                    <li>Pourquoi pleures-tu? (Why are you crying?)</li>
+                    <li>Comment ça marche? (How does it work?)</li>
+                    <li>Combien ça coûte? (How much does it cost?)</li>
+                    <li>Lequel préfères-tu? (Which one do you prefer?)</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 French Verbs Conjugation. All rights reserved.</p>
+    </footer>
+    <button id="dark-mode-button">Dark Mode</button>
+    <script>
+        const flashcards = [
+            { front: 'être', back: 'to be' },
+            { front: 'avoir', back: 'to have' },
+            { front: 'faire', back: 'to do/make' },
+            { front: 'dire', back: 'to say' },
+            { front: 'pouvoir', back: 'to be able to' },
+            { front: 'aller', back: 'to go' },
+            { front: 'voir', back: 'to see' },
+            { front: 'savoir', back: 'to know' },
+            { front: 'vouloir', back: 'to want' },
+            { front: 'venir', back: 'to come' },
+            { front: 'devoir', back: 'to have to' },
+            { front: 'prendre', back: 'to take' },
+            { front: 'trouver', back: 'to find' },
+            { front: 'donner', back: 'to give' },
+            { front: 'falloir', back: 'to need to' },
+            { front: 'parler', back: 'to speak' },
+            { front: 'mettre', back: 'to put' },
+            { front: 'aimer', back: 'to like/love' },
+            { front: 'passer', back: 'to pass' },
+            { front: 'demander', back: 'to ask' },
+            { front: 'tenir', back: 'to hold' },
+            { front: 'sembler', back: 'to seem' },
+            { front: 'laisser', back: 'to leave' },
+            { front: 'rester', back: 'to stay' },
+            { front: 'penser', back: 'to think' },
+            { front: 'entendre', back: 'to hear' },
+            { front: 'regarder', back: 'to look' },
+            { front: 'répondre', back: 'to answer' },
+            { front: 'rendre', back: 'to return' },
+            { front: 'connaître', back: 'to know' },
+            { front: 'paraître', back: 'to appear' },
+            { front: 'sortir', back: 'to go out' },
+            { front: 'vivre', back: 'to live' },
+            { front: 'chercher', back: 'to search' },
+            { front: 'entrer', back: 'to enter' },
+            { front: 'porter', back: 'to carry' },
+            { front: 'ouvrir', back: 'to open' },
+            { front: 'arrêter', back: 'to stop' },
+            { front: 'servir', back: 'to serve' },
+            { front: 'jeter', back: 'to throw' },
+            { front: 'revenir', back: 'to come back' },
+            { front: 'recevoir', back: 'to receive' },
+            { front: 'monter', back: 'to go up' },
+            { front: 'décider', back: 'to decide' },
+            { front: 'arriver', back: 'to arrive' },
+            { front: 'reconnaître', back: 'to recognize' },
+            { front: 'perdre', back: 'to lose' },
+            { front: 'devenir', back: 'to become' },
+            { front: 'réussir', back: 'to succeed' },
+            { front: 'retenir', back: 'to retain' },
+            { front: 'marcher', back: 'to walk' },
+            { front: 'tirer', back: 'to pull' },
+            { front: 'reprendre', back: 'to resume' },
+            { front: 'courir', back: 'to run' },
+            { front: 'mourir', back: 'to die' },
+            { front: 'offrir', back: 'to offer' },
+            { front: 'souffrir', back: 'to suffer' },
+            { front: 'apercevoir', back: 'to perceive' },
+            { front: 'souvenir', back: 'to remember' },
+            { front: 'retourner', back: 'to return' },
+            { front: 'apprendre', back: 'to learn' },
+            { front: 'appeler', back: 'to call' },
+            { front: 'commencer', back: 'to begin' },
+            { front: 'admettre', back: 'to admit' },
+            { front: 'adresser', back: 'to address' },
+            { front: 'affirmer', back: 'to affirm' },
+            { front: 'agir', back: 'to act' },
+            { front: 'ajouter', back: 'to add' },
+            { front: 'aller', back: 'to go' },
+            { front: 'amener', back: 'to bring' },
+            { front: 'annoncer', back: 'to announce' },
+            { front: 'apercevoir', back: 'to perceive' },
+            { front: 'appartenir', back: 'to belong' },
+            { front: 'apparaître', back: 'to appear' },
+            { front: 'appeler', back: 'to call' },
+            { front: 'apporter', back: 'to bring' },
+            { front: 'apprendre', back: 'to learn' },
+            { front: 'approcher', back: 'to approach' },
+            { front: 'appuyer', back: 'to support' },
+            { front: 'arrêter', back: 'to stop' },
+            { front: 'arriver', back: 'to arrive' },
+            { front: 'asseoir', back: 'to sit' },
+            { front: 'assurer', back: 'to assure' },
+            { front: 'attaquer', back: 'to attack' },
+            { front: 'atteindre', back: 'to reach' },
+            { front: 'attendre', back: 'to wait' },
+            { front: 'avancer', back: 'to advance' },
+            { front: 'avertir', back: 'to warn' },
+            { front: 'avoir', back: 'to have' },
+            { front: 'avouer', back: 'to confess' },
+            { front: 'battre', back: 'to beat' },
+            { front: 'bouger', back: 'to move' },
+            { front: 'brûler', back: 'to burn' },
+            { front: 'cacher', back: 'to hide' },
+            { front: 'changer', back: 'to change' },
+            { front: 'chanter', back: 'to sing' },
+            { front: 'chercher', back: 'to search' },
+            { front: 'choisir', back: 'to choose' },
+            { front: 'commander', back: 'to order' },
+            { front: 'commencer', back: 'to begin' },
+            { front: 'comparer', back: 'to compare' },
+            { front: 'comprendre', back: 'to understand' },
+            { front: 'compter', back: 'to count' },
+            { front: 'conclure', back: 'to conclude' },
+            { front: 'condamner', back: 'to condemn' },
+            { front: 'conduire', back: 'to drive' },
+            { front: 'connaître', back: 'to know' },
+            { front: 'conseiller', back: 'to advise' },
+            { front: 'considérer', back: 'to consider' },
+            { front: 'construire', back: 'to build' },
+            { front: 'continuer', back: 'to continue' },
+            { front: 'convaincre', back: 'to convince' },
+            { front: 'coûter', back: 'to cost' },
+            { front: 'courir', back: 'to run' },
+            { front: 'créer', back: 'to create' },
+            { front: 'croire', back: 'to believe' },
+            { front: 'crier', back: 'to shout' },
+            { front: 'décider', back: 'to decide' },
+            { front: 'déclarer', back: 'to declare' },
+            { front: 'découvrir', back: 'to discover' },
+            { front: 'demander', back: 'to ask' },
+            { front: 'démarrer', back: 'to start' },
+            { front: 'démontrer', back: 'to demonstrate' },
+            { front: 'dénoncer', back: 'to denounce' },
+            { front: 'dépêcher', back: 'to hurry' },
+            { front: 'déplacer', back: 'to move' },
+            { front: 'déposer', back: 'to deposit' },
+            { front: 'détester', back: 'to hate' },
+            { front: 'développer', back: 'to develop' },
+            { front: 'devoir', back: 'to have to' },
+            { front: 'dire', back: 'to say' },
+            { front: 'diriger', back: 'to direct' },
+            { front: 'disparaître', back: 'to disappear' },
+            { front: 'distinguer', back: 'to distinguish' },
+            { front: 'diviser', back: 'to divide' },
+            { front: 'donner', back: 'to give' },
+            { front: 'dormir', back: 'to sleep' },
+            { front: 'écrire', back: 'to write' },
+            { front: 'écouter', back: 'to listen' },
+            { front: 'embrasser', back: 'to kiss' },
+            { front: 'emmener', back: 'to take' },
+            { front: 'emprunter', back: 'to borrow' },
+            { front: 'encourager', back: 'to encourage' },
+            { front: 'endormir', back: 'to fall asleep' },
+            { front: 'enlever', back: 'to remove' },
+            { front: 'enseigner', back: 'to teach' },
+            { front: 'entendre', back: 'to hear' },
+            { front: 'entrer', back: 'to enter' },
+            { front: 'envoyer', back: 'to send' },
+            { front: 'espérer', back: 'to hope' },
+            { front: 'essayer', back: 'to try' },
+            { front: 'estimer', back: 'to estimate' },
+            { front: 'éviter', back: 'to avoid' },
+            { front: 'expliquer', back: 'to explain' },
+            { front: 'faire', back: 'to do/make' },
+            { front: 'fermer', back: 'to close' },
+            { front: 'fixer', back: 'to fix' },
+            { front: 'frapper', back: 'to hit' },
+            { front: 'fuir', back: 'to flee' },
+            { front: 'gagner', back: 'to win' },
+            { front: 'garder', back: 'to keep' },
+            { front: 'glisser', back: 'to slide' },
+            { front: 'habiter', back: 'to live' },
+            { front: 'ignorer', back: 'to ignore' },
+            { front: 'imaginer', back: 'to imagine' },
+            { front: 'importer', back: 'to import' },
+            { front: 'indiquer', back: 'to indicate' },
+            { front: 'informer', back: 'to inform' },
+            { front: 'insister', back: 'to insist' },
+            { front: 'installer', back: 'to install' },
+            { front: 'interdire', back: 'to forbid' },
+            { front: 'intéresser', back: 'to interest' },
+            { front: 'inviter', back: 'to invite' },
+            { front: 'jeter', back: 'to throw' },
+            { front: 'jouer', back: 'to play' },
+            { front: 'jurer', back: 'to swear' },
+            { front: 'laver', back: 'to wash' },
+            { front: 'lever', back: 'to lift' },
+            { front: 'lire', back: 'to read' },
+            { front: 'maintenir', back: 'to maintain' },
+            { front: 'manger', back: 'to eat' },
+            { front: 'marcher', back: 'to walk' },
+            { front: 'mettre', back: 'to put' },
+            { front: 'monter', back: 'to go up' },
+            { front: 'montrer', back: 'to show' },
+            { front: 'mourir', back: 'to die' },
+            { front: 'naître', back: 'to be born' },
+            { front: 'nager', back: 'to swim' },
+            { front: 'nettoyer', back: 'to clean' },
+            { front: 'noter', back: 'to note' },
+            { front: 'observer', back: 'to observe' },
+            { front: 'obtenir', back: 'to obtain' },
+            { front: 'occuper', back: 'to occupy' },
+            { front: 'offrir', back: 'to offer' },
+            { front: 'oser', back: 'to dare' },
+            { front: 'oublier', back: 'to forget' },
+            { front: 'ouvrir', back: 'to open' },
+            { front: 'parler', back: 'to speak' },
+            { front: 'partir', back: 'to leave' },
+            { front: 'passer', back: 'to pass' },
+            { front: 'payer', back: 'to pay' },
+            { front: 'penser', back: 'to think' },
+            { front: 'perdre', back: 'to lose' },
+            { front: 'permettre', back: 'to allow' },
+            { front: 'placer', back: 'to place' },
+            { front: 'pleurer', back: 'to cry' },
+            { front: 'porter', back: 'to carry' },
+            { front: 'poser', back: 'to put' },
+            { front: 'posséder', back: 'to possess' },
+            { front: 'préciser', back: 'to specify' },
+            { front: 'prendre', back: 'to take' },
+            { front: 'préparer', back: 'to prepare' },
+            { front: 'présenter', back: 'to present' },
+            { front: 'préserver', back: 'to preserve' },
+            { front: 'prêter', back: 'to lend' },
+            { front: 'prévenir', back: 'to warn' },
+            { front: 'proposer', back: 'to propose' },
+            { front: 'protéger', back: 'to protect' },
+            { front: 'quitter', back: 'to leave' },
+            { front: 'raconter', back: 'to tell' },
+            { front: 'ramener', back: 'to bring back' },
+            { front: 'rappeler', back: 'to remind' },
+            { front: 'recevoir', back: 'to receive' },
+            { front: 'rechercher', back: 'to search' },
+            { front: 'reconnaître', back: 'to recognize' },
+            { front: 'réfléchir', back: 'to reflect' },
+            { front: 'regarder', back: 'to watch' },
+            { front: 'rejeter', back: 'to reject' },
+            { front: 'remarquer', back: 'to notice' },
+            { front: 'remercier', back: 'to thank' },
+            { front: 'remettre', back: 'to put back' },
+            { front: 'remplacer', back: 'to replace' },
+            { front: 'rencontrer', back: 'to meet' },
+            { front: 'rendre', back: 'to return' },
+            { front: 'renoncer', back: 'to renounce' },
+            { front: 'répéter', back: 'to repeat' },
+            { front: 'répondre', back: 'to answer' },
+            { front: 'reprendre', back: 'to resume' },
+            { front: 'respecter', back: 'to respect' },
+            { front: 'rester', back: 'to stay' },
+            { front: 'retenir', back: 'to retain' },
+            { front: 'retourner', back: 'to return' },
+            { front: 'réunir', back: 'to reunite' },
+            { front: 'réussir', back: 'to succeed' },
+            { front: 'réveiller', back: 'to wake up' },
+            { front: 'rêver', back: 'to dream' },
+            { front: 'revenir', back: 'to come back' },
+            { front: 'rire', back: 'to laugh' },
+            { front: 'saisir', back: 'to seize' },
+            { front: 'sauter', back: 'to jump' },
+            { front: 'savoir', back: 'to know' },
+            { front: 'séparer', back: 'to separate' },
+            { front: 'souligner', back: 'to underline' },
+            { front: 'soumettre', back: 'to submit' },
+            { front: 'souvenir', back: 'to remember' },
+            { front: 'suivre', back: 'to follow' },
+            { front: 'tenir', back: 'to hold' },
+            { front: 'terminer', back: 'to finish' },
+            { front: 'tirer', back: 'to pull' },
+            { front: 'tomber', back: 'to fall' },
+            { front: 'toucher', back: 'to touch' },
+            { front: 'travailler', back: 'to work' },
+            { front: 'traverser', back: 'to cross' },
+            { front: 'trouver', back: 'to find' },
+            { front: 'utiliser', back: 'to use' },
+            { front: 'valoir', back: 'to be worth' },
+            { front: 'venir', back: 'to come' },
+            { front: 'vérifier', back: 'to check' },
+            { front: 'vivre', back: 'to live' },
+            { front: 'voir', back: 'to see' },
+            { front: 'vouloir', back: 'to want' }
+        ];
+
+        const stories = {
+            "cendrillon": {
+                french: `Il était une fois une jeune fille appelée Cendrillon qui vivait avec sa belle-mère et ses demi-sœurs. Sa belle-mère était très méchante et la forçait à faire toutes les tâches ménagères. Un jour, un bal royal fut annoncé et Cendrillon souhaitait y aller, mais sa belle-mère l'en empêcha. Heureusement, sa marraine la fée apparut et, avec un coup de baguette magique, transforma Cendrillon en une magnifique princesse et lui donna une voiture dorée pour se rendre au bal. Cependant, elle devait revenir avant minuit, car le sortilège prendrait fin. Au bal, le prince tomba amoureux de Cendrillon, mais elle s'enfuit à minuit, laissant derrière elle une chaussure de verre. Le prince parcourut tout le royaume à la recherche de la fille dont le pied s'adapterait à la chaussure. Lorsqu'il trouva Cendrillon, ils se marièrent et vécurent heureux pour toujours.`,
+                english: `Once upon a time, there was a young girl named Cinderella who lived with her stepmother and stepsisters. Her stepmother was very mean and forced her to do all the household chores. One day, a royal ball was announced, and Cinderella wished to go, but her stepmother prevented her. Fortunately, her fairy godmother appeared and, with a wave of her magic wand, transformed Cinderella into a beautiful princess and gave her a golden carriage to go to the ball. However, she had to return before midnight because the spell would end. At the ball, the prince fell in love with Cinderella, but she fled at midnight, leaving behind a glass slipper. The prince searched the kingdom for the girl whose foot would fit the slipper. When he found Cinderella, they married and lived happily ever after.`
+            },
+            "petit-chaperon-rouge": {
+                french: `Il était une fois une petite fille qui portait toujours un chaperon rouge, d'où son nom, Le Petit Chaperon Rouge. Un jour, sa mère lui demanda d'apporter des galettes et un petit pot de beurre à sa grand-mère malade. En chemin, elle rencontra un loup qui lui demanda où elle allait. Le Petit Chaperon Rouge, innocemment, lui répondit. Le loup se précipita chez la grand-mère, la dévora et prit sa place dans le lit. Lorsque Le Petit Chaperon Rouge arriva, elle fut surprise de voir sa "grand-mère" avec de grands yeux, de grandes oreilles, et de grandes dents! Le loup sauta du lit et voulut la dévorer aussi, mais heureusement, un chasseur passa par là, tua le loup et sauva la grand-mère et Le Petit Chaperon Rouge.`,
+                english: `Once upon a time, there was a little girl who always wore a red riding hood, hence her name, Little Red Riding Hood. One day, her mother asked her to bring some cakes and a little pot of butter to her sick grandmother. On the way, she met a wolf who asked her where she was going. Little Red Riding Hood, innocently, told him. The wolf rushed to the grandmother's house, devoured her, and took her place in the bed. When Little Red Riding Hood arrived, she was surprised to see her "grandmother" with big eyes, big ears, and big teeth! The wolf jumped out of bed and wanted to devour her too, but luckily, a hunter passed by, killed the wolf, and saved the grandmother and Little Red Riding Hood.`
+            },
+            "blanche-neige": {
+                french: `Il était une fois une belle princesse nommée Blanche-Neige qui vivait avec sa belle-mère jalouse, la reine. La reine consultait tous les jours son miroir magique en lui demandant : "Miroir, miroir, dis-moi qui est la plus belle ?" Un jour, le miroir répondit que Blanche-Neige était la plus belle. Furieuse, la reine ordonna à un chasseur de tuer Blanche-Neige. Mais le chasseur, pris de pitié, la laissa partir dans la forêt. Blanche-Neige trouva refuge chez sept nains. La reine découvrit qu'elle était encore vivante et tenta de la tuer avec une pomme empoisonnée. Blanche-Neige mordit la pomme et tomba dans un profond sommeil. Un prince, passant par là, lui donna un baiser d'amour véritable qui la réveilla. Ils se marièrent et vécurent heureux pour toujours.`,
+                english: `Once upon a time, there was a beautiful princess named Snow White who lived with her jealous stepmother, the queen. The queen consulted her magic mirror every day, asking: "Mirror, mirror, on the wall, who is the fairest of them all?" One day, the mirror replied that Snow White was the fairest. Furious, the queen ordered a huntsman to kill Snow White. But the huntsman, feeling pity, let her go into the forest. Snow White found refuge with seven dwarfs. The queen discovered she was still alive and tried to kill her with a poisoned apple. Snow White bit the apple and fell into a deep sleep. A prince, passing by, gave her a kiss of true love which woke her up. They married and lived happily ever after.`
+            },
+            "le-petit-prince": {
+                french: `Le Petit Prince vivait sur une petite planète avec une rose dont il prenait soin. Un jour, il décida de voyager et visita plusieurs planètes où il rencontra des personnages bizarres. Sur Terre, il rencontra un aviateur et un renard. Le renard lui apprit une leçon importante sur l'amour et l'apprivoisement : "On ne voit bien qu'avec le cœur. L'essentiel est invisible pour les yeux." Le Petit Prince réalisa alors l'importance de sa rose et décida de retourner sur sa planète pour s'en occuper. Avant de partir, il laissa un message d'amour et de sagesse à l'aviateur.`,
+                english: `The Little Prince lived on a small planet with a rose that he cared for. One day, he decided to travel and visited several planets where he met strange characters. On Earth, he met an aviator and a fox. The fox taught him an important lesson about love and taming: "One sees clearly only with the heart. The essential is invisible to the eyes." The Little Prince then realized the importance of his rose and decided to return to his planet to take care of it. Before leaving, he left a message of love and wisdom for the aviator.`
+            },
+            "barbe-bleue": {
+                french: `Il était une fois un homme très riche qui avait la barbe bleue, ce qui le rendait effrayant et repoussant. Il avait déjà eu plusieurs épouses, mais personne ne savait ce qu'elles étaient devenues. Un jour, il proposa à une jeune fille de l'épouser et elle accepta malgré ses craintes. Un jour, il partit en voyage et lui donna les clés de toutes les pièces de son château, mais lui interdit d'entrer dans une petite pièce. Curieuse, la jeune épouse ouvrit la pièce interdite et découvrit les cadavres des anciennes épouses de Barbe Bleue. Horrifiée, elle referma la porte, mais la clé était tachée de sang et ne pouvait être nettoyée. À son retour, Barbe Bleue découvrit sa désobéissance et menaça de la tuer. Heureusement, ses frères arrivèrent à temps pour la sauver et tuèrent Barbe Bleue. La jeune fille hérita de ses richesses et vécut heureuse.`,
+                english: `Once upon a time, there was a very rich man who had a blue beard, which made him frightening and repulsive. He had already had several wives, but no one knew what had happened to them. One day, he proposed to a young girl, and she accepted despite her fears. One day, he went on a trip and gave her the keys to all the rooms in his castle but forbade her from entering a small room. Curious, the young wife opened the forbidden room and discovered the corpses of Bluebeard's previous wives. Horrified, she closed the door, but the key was stained with blood and could not be cleaned. Upon his return, Bluebeard discovered her disobedience and threatened to kill her. Fortunately, her brothers arrived in time to save her and killed Bluebeard. The young girl inherited his wealth and lived happily.`
+            },
+            "la-belle-et-la-bete": {
+                french: `Il était une fois un marchand qui avait trois filles. La plus jeune, Belle, était la plus belle et la plus gentille. Un jour, le marchand se perdit dans une forêt et trouva refuge dans un château mystérieux. En partant, il cueillit une rose pour Belle, mais la Bête, le maître du château, le surprit et menaça de le tuer à moins qu'une de ses filles ne prenne sa place. Belle accepta de se sacrifier et alla vivre avec la Bête. Au début, elle avait peur de lui, mais elle découvrit vite sa gentillesse et son cœur d'or. Ils tombèrent amoureux et la Bête se transforma en un beau prince, car l'amour véritable avait brisé le sortilège qui l'avait transformé en monstre. Belle et le prince vécurent heureux pour toujours.`,
+                english: `Once upon a time, there was a merchant who had three daughters. The youngest, Belle, was the most beautiful and kind. One day, the merchant got lost in a forest and found refuge in a mysterious castle. As he was leaving, he picked a rose for Belle, but the Beast, the master of the castle, caught him and threatened to kill him unless one of his daughters took his place. Belle agreed to sacrifice herself and went to live with the Beast. At first, she was afraid of him, but she soon discovered his kindness and golden heart. They fell in love, and the Beast transformed into a handsome prince, for true love had broken the spell that had turned him into a monster. Belle and the prince lived happily ever after.`
+            },
+            "le-chat-botte": {
+                french: `Il était une fois un meunier qui ne laissa pour tout héritage à ses trois enfants que son moulin, son âne et son chat. Le partage fut bientôt fait; ni le notaire, ni l'huissier n'y furent appelés. L'aîné eut le moulin, le second eut l'âne, et le plus jeune n'eut que le chat. Ce dernier ne se consolait pas d'avoir un si pauvre lot. "Mes frères, disait-il, pourront gagner leur vie honnêtement en se mettant ensemble; pour moi, lorsque j'aurai mangé mon chat et que je me serai fait un manchon de sa peau, il faudra que je meure de faim." Le Chat, qui entendait ce discours, mais qui n'en montrait rien, lui dit d'un air posé et sérieux: "Ne vous affligez point, mon maître; vous n'avez qu'à me donner un sac et me faire faire une paire de bottes pour aller dans les broussailles, et vous verrez que vous n'êtes pas si mal partagé que vous croyez." Le fils du meunier n'avait pas grande foi à ce discours; cependant il lui avait vu faire tant de tours de souplesse pour prendre des rats et des souris, comme quand il se pendait par les pieds ou se cachait dans la farine pour faire le mort, qu'il ne désespéra pas d'en être secouru dans sa misère. Dès qu'il eut ce qu'il avait demandé, il se bottait bravement, et, mettant son sac autour du cou, il en prit les cordons avec ses deux pattes de devant, et s'en alla dans une garenne où il y avait grand nombre de lapins.`,
+                english: `Once upon a time, there was a miller who left as inheritance to his three children nothing but his mill, his donkey, and his cat. The division was soon made; neither the notary nor the lawyer was called. The eldest got the mill, the second got the donkey, and the youngest got only the cat. The latter did not console himself for having such a poor lot. "My brothers," he said, "can earn their living honestly by joining together; as for me, when I have eaten my cat and made a muff out of its skin, I will have to die of hunger." The cat, who heard this speech but showed nothing, said to him with a calm and serious air: "Do not be sad, my master; you only have to give me a sack and have a pair of boots made for me to go into the brambles, and you will see that you are not as poorly off as you believe." The miller's son did not have much faith in this speech; however, he had seen him do so many tricks to catch rats and mice, such as hanging by his feet or hiding in the flour to play dead, that he did not despair of being helped in his misery. As soon as he had what he had asked for, he boldly put on his boots, and, putting his sack around his neck, he took the cords with his two front paws and went into a warren where there were many rabbits.`
+            },
+            "la-petite-sirene": {
+                french: `Il était une fois une petite sirène qui vivait dans la mer avec son père, le roi de la mer, et ses sœurs. Elle était fascinée par le monde des humains et rêvait d'y aller. Un jour, elle sauva un prince de la noyade et tomba amoureuse de lui. Désespérée de le revoir, elle demanda l'aide de la sorcière de la mer, qui lui donna des jambes en échange de sa voix. La petite sirène se rendit sur terre et rencontra le prince, mais il ne la reconnut pas sans sa voix. Le prince finit par épouser une autre femme, et la petite sirène, le cœur brisé, se transforma en écume de mer. Cependant, grâce à son sacrifice, elle gagna une âme immortelle et la possibilité d'aller au paradis.`,
+                english: `Once upon a time, there was a little mermaid who lived in the sea with her father, the sea king, and her sisters. She was fascinated by the human world and dreamed of going there. One day, she saved a prince from drowning and fell in love with him. Desperate to see him again, she sought the help of the sea witch, who gave her legs in exchange for her voice. The little mermaid went to the land and met the prince, but he did not recognize her without her voice. The prince eventually married another woman, and the little mermaid, heartbroken, turned into sea foam. However, thanks to her sacrifice, she gained an immortal soul and the possibility of going to heaven.`
+            },
+            "la-barbe-bleue": {
+                french: `Il était une fois un homme qui avait une barbe bleue. Ce détail le rendait si laid et si effrayant que toutes les femmes et jeunes filles le fuyaient. Un jour, il demanda à une jeune fille de l'épouser. Celle-ci refusa d'abord, mais, après beaucoup d'hésitations et de réflexion, elle accepta. Peu de temps après leur mariage, Barbe-Bleue annonça qu'il devait partir pour un voyage d'affaires et donna les clés de toutes les pièces de son château à sa nouvelle épouse, mais lui interdit d'entrer dans une petite pièce. Curieuse, la jeune épouse ne put résister et ouvrit la porte de la pièce interdite. Elle découvrit alors les cadavres des anciennes épouses de Barbe-Bleue. Effrayée, elle referma la porte, mais la clé tachée de sang révéla sa désobéissance. À son retour, Barbe-Bleue découvrit la trahison et menaça de la tuer. Heureusement, ses frères arrivèrent à temps pour la sauver et tuèrent Barbe-Bleue. La jeune fille hérita de sa fortune et vécut heureuse.`,
+                english: `Once upon a time, there was a man who had a blue beard. This detail made him so ugly and frightening that all the women and young girls avoided him. One day, he asked a young girl to marry him. She refused at first, but after much hesitation and thought, she accepted. Shortly after their marriage, Bluebeard announced that he had to go on a business trip and gave the keys to all the rooms in his castle to his new wife but forbade her from entering a small room. Curious, the young wife could not resist and opened the door to the forbidden room. She then discovered the corpses of Bluebeard's previous wives. Frightened, she closed the door, but the blood-stained key revealed her disobedience. Upon his return, Bluebeard discovered the betrayal and threatened to kill her. Fortunately, her brothers arrived in time to save her and killed Bluebeard. The young girl inherited his fortune and lived happily.`
+            },
+            "peau-d-ane": {
+                french: `Il était une fois un roi qui voulut épouser sa propre fille. Pour échapper à ce mariage incestueux, la princesse demanda des robes impossibles à réaliser : une robe couleur du temps, une robe couleur de lune, et une robe couleur de soleil. Grâce à la magie, le roi réussit à lui offrir ces robes. La princesse, désespérée, demanda alors la peau de l'âne merveilleux qui donnait chaque jour de l'or et des bijoux. À contrecœur, le roi accepta. La princesse s'enfuit, déguisée sous la peau de l'âne, et se réfugia dans une ferme. Là, elle vécut comme servante, mais sa beauté et sa gentillesse attirèrent bientôt l'attention d'un prince. Un jour, il la vit porter une des robes magnifiques et tomba amoureux d'elle. Ils se marièrent et vécurent heureux.`,
+                english: `Once upon a time, there was a king who wanted to marry his own daughter. To escape this incestuous marriage, the princess asked for dresses that were impossible to make: a dress the color of the sky, a dress the color of the moon, and a dress the color of the sun. Through magic, the king managed to give her these dresses. The princess, desperate, then asked for the skin of the magical donkey that gave gold and jewels every day. Reluctantly, the king agreed. The princess fled, disguised under the skin of the donkey, and took refuge on a farm. There, she lived as a servant, but her beauty and kindness soon attracted the attention of a prince. One day, he saw her wearing one of the magnificent dresses and fell in love with her. They married and lived happily ever after.`
+            },
+            "la-petite-poule-rousse": {
+                french: `Il était une fois une petite poule rousse qui vivait dans une ferme avec ses trois poussins. Un jour, en grattant le sol, elle trouva un grain de blé. "Qui va m'aider à planter ce grain de blé?" demanda-t-elle à ses voisins. "Pas moi!" dit le cochon. "Pas moi!" dit le canard. "Pas moi!" dit le chat. "Alors je vais le faire moi-même", dit la petite poule rousse. Elle planta le grain de blé, l'arrosa, le récolta, le battit, le moulut en farine et fit du pain. À chaque étape, elle demanda de l'aide, mais ses voisins refusaient toujours. Quand le pain fut cuit, elle demanda: "Qui va m'aider à manger ce pain?" "Moi, moi, moi!" dirent le cochon, le canard et le chat. "Non, je vais le manger moi-même", dit la petite poule rousse, et elle mangea le pain avec ses poussins.`,
+                english: `Once upon a time, there was a little red hen who lived on a farm with her three chicks. One day, while scratching the ground, she found a grain of wheat. "Who will help me plant this grain of wheat?" she asked her neighbors. "Not I!" said the pig. "Not I!" said the duck. "Not I!" said the cat. "Then I will do it myself," said the little red hen. She planted the grain of wheat, watered it, harvested it, threshed it, ground it into flour, and baked it into bread. At each step, she asked for help, but her neighbors always refused. When the bread was baked, she asked: "Who will help me eat this bread?" "Me, me, me!" said the pig, the duck, and the cat. "No, I will eat it myself," said the little red hen, and she ate the bread with her chicks.`
+            },
+            "les-trois-petits-cochons": {
+                french: `Il était une fois trois petits cochons qui décidèrent de construire leurs maisons. Le premier cochon fit sa maison en paille, le deuxième en bois et le troisième en briques. Un jour, le loup vint et souffla sur la maison de paille, la détruisant. Le petit cochon courut se réfugier chez son frère dans la maison en bois. Le loup souffla sur la maison en bois, la détruisant aussi. Les deux cochons coururent se réfugier chez leur frère dans la maison en briques. Le loup souffla de toutes ses forces, mais la maison en briques était solide et il ne put la détruire. Furieux, il tenta d'entrer par la cheminée, mais les petits cochons allumèrent un grand feu et le loup tomba dedans. Il s'enfuit, ne revint jamais, et les trois petits cochons vécurent heureux et en sécurité.`,
+                english: `Once upon a time, there were three little pigs who decided to build their houses. The first pig built his house of straw, the second of wood, and the third of bricks. One day, the wolf came and blew down the house of straw, destroying it. The little pig ran to take refuge with his brother in the wooden house. The wolf blew down the wooden house, destroying it as well. The two pigs ran to take refuge with their brother in the brick house. The wolf blew with all his might, but the brick house was solid and he could not destroy it. Furious, he tried to enter through the chimney, but the little pigs lit a big fire, and the wolf fell into it. He fled, never returned, and the three little pigs lived happily and safely.`
+            },
+            "belle-au-bois-dormant": {
+                french: `Il était une fois une belle princesse qui tomba dans un profond sommeil à cause d'une malédiction jetée par une méchante fée. Selon la prophétie, elle se piquerait le doigt sur une quenouille et tomberait endormie pour cent ans, jusqu'à ce qu'un prince vienne la réveiller par un baiser d'amour véritable. La prophétie se réalisa et tout le royaume tomba dans un sommeil profond. Cent ans plus tard, un prince arriva, découvrit la princesse endormie et lui donna un baiser. La princesse se réveilla, ainsi que tout le royaume. Ils se marièrent et vécurent heureux pour toujours.`,
+                english: `Once upon a time, there was a beautiful princess who fell into a deep sleep because of a curse cast by an evil fairy. According to the prophecy, she would prick her finger on a spindle and fall asleep for a hundred years until a prince came to wake her with a kiss of true love. The prophecy came true, and the entire kingdom fell into a deep sleep. A hundred years later, a prince arrived, found the sleeping princess, and kissed her. The princess woke up, and so did the entire kingdom. They married and lived happily ever after.`
+            },
+            "le-vilain-petit-canard": {
+                french: `Il était une fois un vilain petit canard qui se sentait seul et rejeté par les autres animaux de la ferme à cause de son apparence différente. Il décida de partir et vécut des moments difficiles, mais il survécut. Un jour, il vit des cygnes majestueux et, à sa grande surprise, il réalisa qu'il était devenu l'un d'eux. Le vilain petit canard s'était transformé en un beau cygne. Il fut accepté et aimé par les autres cygnes et vécut heureux pour toujours.`,
+                english: `Once upon a time, there was an ugly duckling who felt lonely and rejected by the other animals on the farm because of his different appearance. He decided to leave and went through difficult times, but he survived. One day, he saw majestic swans and, to his great surprise, realized that he had become one of them. The ugly duckling had turned into a beautiful swan. He was accepted and loved by the other swans and lived happily ever after.`
+            },
+            "raiponce": {
+                french: `Il était une fois une jeune fille aux longs cheveux dorés nommée Raiponce, enfermée dans une tour par une méchante sorcière. La seule façon d'entrer dans la tour était de grimper sur ses cheveux. Un jour, un prince passa par là et entendit Raiponce chanter. Il grimpa à la tour en utilisant ses cheveux et tomba amoureux d'elle. La sorcière découvrit leur amour et coupa les cheveux de Raiponce, la condamnant à l'exil. Le prince erra aveugle et désespéré jusqu'à ce qu'il retrouve Raiponce. Ses larmes de joie guérirent sa cécité, et ils vécurent heureux pour toujours.`,
+                english: `Once upon a time, there was a young girl with long golden hair named Rapunzel, locked in a tower by an evil witch. The only way to enter the tower was to climb her hair. One day, a prince passed by and heard Rapunzel singing. He climbed the tower using her hair and fell in love with her. The witch discovered their love and cut Rapunzel's hair, condemning her to exile. The prince wandered blind and desperate until he found Rapunzel. Her tears of joy healed his blindness, and they lived happily ever after.`
+            }
+        };
+
+        let flashcardIndex = 0;
+        const flippedCards = [];
+
+        function createFlashcard(card) {
+            const flashcard = document.createElement('div');
+            flashcard.classList.add('flashcard');
+            flashcard.innerHTML = `
+                <div class="front">${card.front}</div>
+                <div class="back">${card.back}</div>
+            `;
+            flashcard.addEventListener('click', () => {
+                flashcard.classList.toggle('flipped');
+                flippedCards.push(flashcard);
+                if (flippedCards.length >= 5) {
+                    setTimeout(loadFlashcards, 500);
+                    flippedCards.length = 0; // Reset the flipped cards counter
+                }
+            });
+            return flashcard;
+        }
+
+        function loadFlashcards() {
+            const flashcardsContainer = document.getElementById('flashcards-container');
+            for (let i = 0; i < 5 && flashcardIndex < flashcards.length; i++) {
+                const card = flashcards[flashcardIndex++];
+                const flashcardElement = createFlashcard(card);
+                flashcardsContainer.appendChild(flashcardElement);
+            }
+        }
+
+        document.getElementById('load-more-flashcards').addEventListener('click', loadFlashcards);
+
+        document.getElementById('dark-mode-button').addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        // Navigation click handlers
+        document.querySelectorAll('nav a').forEach(navLink => {
+            navLink.addEventListener('click', (event) => {
+                event.preventDefault();
+                const sectionId = navLink.getAttribute('href').substring(1);
+                document.querySelectorAll('.section').forEach(section => {
+                    section.style.display = 'none';
+                });
+                document.getElementById(sectionId).style.display = 'block';
+            });
+        });
+
+        document.querySelectorAll('.story-item').forEach(item => {
+            item.addEventListener('click', (event) => {
+                const storyKey = item.getAttribute('data-story');
+                document.getElementById('story-list').classList.add('hidden');
+                document.getElementById('story-content').classList.remove('hidden');
+                document.getElementById('story-french').innerText = stories[storyKey].french;
+                document.getElementById('story-english').innerText = stories[storyKey].english;
+            });
+        });
+
+        document.getElementById('back-button').addEventListener('click', () => {
+            document.getElementById('story-content').classList.add('hidden');
+            document.getElementById('story-list').classList.remove('hidden');
+        });
+
+        // Initial load
+        document.getElementById('present-tense').style.display = 'block';
+        loadFlashcards();
+    </script>
+</body>
+</html>
